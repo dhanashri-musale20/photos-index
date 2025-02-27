@@ -1,38 +1,10 @@
-import React from "react";
+ import React from "react";
 import { useParams, Link } from "react-router-dom";
-import photoData from '../data/products.json';
-
-// Sample product data
-/* const products = [
-  {
-    id: "1",
-    name: "Canon EOS Rebel T1i",
-    image: "https://via.placeholder.com/200", // Replace with actual image
-    description: "A powerful DSLR camera for professional photography.",
-  },
-  {
-    id: "2",
-    name: "DJI Air",
-    image: "https://via.placeholder.com/200",
-    description: "A high-performance drone for stunning aerial shots.",
-  },
-  {
-    id: "3",
-    name: "Apple 10.2-inch iPad",
-    image: "https://via.placeholder.com/200",
-    description: "A sleek and powerful iPad for all your creative needs.",
-  },
-  {
-    id: "4",
-    name: "iPhone 14",
-    image: "https://via.placeholder.com/200",
-    description: "The latest iPhone with advanced camera and performance.",
-  },
-]; */
+import photoData from "../data/products.json";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const product =photoData.find((product) => String(product._id) === String(id));
+  const product = photoData.find((product) => String(product._id) === String(id));
 
   if (!product) {
     return <div className="text-center text-red-500">Product not found</div>;
@@ -43,11 +15,24 @@ const ProductDetails = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <img
           src={product.image}
-          alt={product.name}
+          alt={product.title}
           className="w-full h-60 object-cover rounded"
         />
-        <h2 className="text-2xl font-semibold mt-4">{product.name}</h2>
-        <p className="text-gray-600 mt-2">{product.description}</p>
+        <h2 className="text-2xl font-semibold mt-4">{product.title}</h2>
+        <p className="text-gray-600 mt-2">{product.des}</p>
+        <p className="text-gray-700 mt-2 font-medium">Brand: {product.brand}</p>
+        <p className="text-gray-700 mt-2">Category: {product.category}</p>
+        <p className="text-gray-900 mt-2 font-bold">Price: ${product.price}</p>
+        {product.oldPrice && (
+          <p className="text-red-500 line-through">Old Price: ${product.oldPrice}</p>
+        )}
+        {product.isNew && <span className="text-green-600 font-semibold">New Arrival</span>}
+        <div className="flex items-center mt-2">
+          <span className="text-yellow-500 text-lg">⭐ ⭐ ⭐ ⭐ ⭐</span>
+        </div>
+        <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+          Buy Now
+        </button>
         <Link to="/photos" className="mt-4 block text-blue-500 hover:underline">
           Back to Gallery
         </Link>
@@ -57,3 +42,7 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+ 
+
+
+
